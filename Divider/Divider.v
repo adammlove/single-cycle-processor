@@ -1,7 +1,6 @@
-module divider(a, b, ovr, quotient, remainder);
+module divider(a, b, quotient, remainder);
     input [63:0] a, b;
     output reg [63:0] quotient, remainder;
-    output reg ovr;
 
     // internal variables
     reg [127:0] rem;
@@ -86,9 +85,6 @@ module divider(a, b, ovr, quotient, remainder);
         if(~negative) begin
             quotient = rem[63:0];
         end
-
-        // overflow
-        ovr = (~negative & quotient[63])|(negative & ~quotient[63]);
     end
 
 endmodule

@@ -9,12 +9,12 @@ module ALU(a_in, b_in, sel, result, z_f, o_f);
 
     // used for outputting results and flags
     wire [63:0] add_result, mult_result, div_quotient, div_remainder;
-    wire add_cout, add_ovr, mult_ovr, div_ovr;
+    wire add_cout, add_ovr;
 
     // initialize the adder, multiplier, and divider
     sixtyfourbitadder adder(a, b, add_cout, add_ovr, add_result);
-    multiplier mult(a, b, mult_ovr, mult_result);
-    divider div(a, b, div_ovr, div_quotient, div_remainder);
+    multiplier mult(a, b, mult_result);
+    divider div(a, b, div_quotient, div_remainder);
 
     always @(*) begin
 
@@ -42,7 +42,7 @@ module ALU(a_in, b_in, sel, result, z_f, o_f);
                 b <= b_in;
                 result <= mult_result;
                 z_f <= ~|result;
-                o_f <= mult_ovr;
+                o_f <= 1'b0;
             end
             // division
             3'b011: begin
@@ -50,7 +50,7 @@ module ALU(a_in, b_in, sel, result, z_f, o_f);
                 b <= b_in;
                 result <= div_quotient;
                 z_f <= ~|result;
-                o_f <=  div_ovr;
+                o_f <=  1'b0;
             end
             // AND
             3'b100: begin

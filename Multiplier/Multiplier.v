@@ -1,7 +1,6 @@
-module multiplier(mult_1, mult_2, ovr, product);
+module multiplier(mult_1, mult_2, product);
     input [63:0] mult_1, mult_2;    // inputs
     output reg [127:0] product;     // product
-    output reg ovr;                 // overflow
 
     // internal variables
     reg [63:0] mcand, multiplier;
@@ -61,9 +60,6 @@ module multiplier(mult_1, mult_2, ovr, product);
         if(negative) begin
             product = ~product + 1;
         end
-
-        // overflow
-        ovr = (~negative & (|product[127:63])) | (negative & ~(|product[127:63]));
     end
 
 endmodule
