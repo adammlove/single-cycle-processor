@@ -21,7 +21,7 @@ module allregisters(write, clk, sel_r1, sel_r2, sel_w, data_in, data_out1, data_
     end
 
     // logic for writing to register
-    always @(negedge clk) begin
+    always @(posedge clk) begin
         // write must be enabled, cannot write to 0 register
         if(write & (sel_w != 0)) begin
             // select which register to write to
