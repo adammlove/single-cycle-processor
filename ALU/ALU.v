@@ -2,7 +2,7 @@ module ALU(a_in, b_in, sel, result, z_f, o_f);
     input [63:0] a_in, b_in;          // inputs
     input [2:0] sel;            // select operation
     output reg [63:0] result;   // result
-    output reg z_f, o_f;    // flags: zero, carry, overflow
+    output reg z_f, o_f;        // flags: zero, carry, overflow
     
     // intermediate registers
     reg [63:0] a, b;
@@ -20,8 +20,10 @@ module ALU(a_in, b_in, sel, result, z_f, o_f);
 
         // select operation
         case(sel)
+            default: begin end
+            
             // addition
-            3'b000: begin
+            3'b001: begin
                 a <= a_in;
                 b <= b_in;
                 result <= add_result;
@@ -29,7 +31,7 @@ module ALU(a_in, b_in, sel, result, z_f, o_f);
                 o_f <= add_ovr;
             end
             // subtraction
-            3'b001: begin
+            3'b010: begin
                 a <= a_in;
                 b <= ~b_in + 1'b1;  // two's compliment
                 result <= add_result;
@@ -37,7 +39,7 @@ module ALU(a_in, b_in, sel, result, z_f, o_f);
                 o_f <= add_ovr;
             end
             // multiplication
-            3'b010: begin
+            3'b011: begin
                 a <= a_in;
                 b <= b_in;
                 result <= mult_result;
@@ -45,7 +47,7 @@ module ALU(a_in, b_in, sel, result, z_f, o_f);
                 o_f <= 1'b0;
             end
             // division
-            3'b011: begin
+            3'b100: begin
                 a <= a_in;
                 b <= b_in;
                 result <= div_quotient;
@@ -53,13 +55,13 @@ module ALU(a_in, b_in, sel, result, z_f, o_f);
                 o_f <=  1'b0;
             end
             // AND
-            3'b100: begin
+            3'b101: begin
                 result <= a_in & b_in;
                 z_f <= ~|result;
                 o_f <= 1'b0;
             end
             // OR
-            3'b101: begin
+            3'b110: begin
                 result <= a_in | b_in;
                 z_f <= ~|result;
                 o_f <= 1'b0;

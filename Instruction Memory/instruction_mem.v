@@ -2,14 +2,14 @@ module instruction_memory(address, instruction);
     input [31:0] address;
     output reg [31:0] instruction;
 
-    // 4 kilobytes
-    reg [31:0] mem [0:1024];
+    // 1 kilobyte
+    reg [31:0] mem [0:255];
 
     // load program
     integer i;
     initial begin
         // initialize memory to 0
-        for(i=0; i<=1024; i=i+1) begin
+        for(i=0; i<=255; i=i+1) begin
             mem[i] = 32'h00000000;
         end
 

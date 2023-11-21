@@ -13,5 +13,6 @@ initial begin
     #1;
     sel = 1;
     #1;
+    sel = 0;
 end
 endmodule
