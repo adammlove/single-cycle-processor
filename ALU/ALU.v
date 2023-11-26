@@ -1,5 +1,5 @@
 module ALU(a_in, b_in, sel, result, z_f, o_f);
-    input [63:0] a_in, b_in;          // inputs
+    input [63:0] a_in, b_in;    // inputs
     input [2:0] sel;            // select operation
     output reg [63:0] result;   // result
     output reg z_f, o_f;        // flags: zero, carry, overflow
@@ -24,32 +24,32 @@ module ALU(a_in, b_in, sel, result, z_f, o_f);
             
             // addition
             3'b001: begin
-                a <= a_in;
-                b <= b_in;
+                a <= $signed(a_in);
+                b <= $signed(b_in);
                 result <= add_result;
                 z_f <= ~|result;
                 o_f <= add_ovr;
             end
             // subtraction
             3'b010: begin
-                a <= a_in;
-                b <= ~b_in + 1'b1;  // two's compliment
+                a <= $signed(a_in);
+                b <= $signed(~b_in + 1'b1);  // two's compliment
                 result <= add_result;
                 z_f <= ~|result;
                 o_f <= add_ovr;
             end
             // multiplication
             3'b011: begin
-                a <= a_in;
-                b <= b_in;
+                a <= $signed(a_in);
+                b <= $signed(b_in);
                 result <= mult_result;
                 z_f <= ~|result;
                 o_f <= 1'b0;
             end
             // division
             3'b100: begin
-                a <= a_in;
-                b <= b_in;
+                a <= $signed(a_in);
+                b <= $signed(b_in);
                 result <= div_quotient;
                 z_f <= ~|result;
                 o_f <=  1'b0;

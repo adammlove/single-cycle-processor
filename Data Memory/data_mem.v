@@ -1,7 +1,7 @@
 module data_mem(address, clk, data_in, data_out, memwrite, memread);
     input memwrite, memread, clk;
     input [63:0] address, data_in;
-    output reg [63:0] data_out;
+    output reg [31:0] data_out;
 
     // 1 kilobyte
     reg [7:0] mem [0:1024];
@@ -36,7 +36,7 @@ module data_mem(address, clk, data_in, data_out, memwrite, memread);
     always @(negedge clk) begin
         // write data using lower 32 bits
         if(memwrite) begin
-            data_out <= 64'hxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx;
+            data_out <= 32'hxxxxxxxx;
             mem[address] <= data_in[31:24];
             mem[address+1] <= data_in[23:16];
             mem[address+2] <= data_in[15:8];
@@ -45,7 +45,7 @@ module data_mem(address, clk, data_in, data_out, memwrite, memread);
         // read data
         // since registers are 64-bit, perform sign extension
         if(memread) begin
-            data_out <= $signed({mem[address], mem[address+1], mem[address+2], mem[address+3]});
+            data_out <= {mem[address], mem[address+1], mem[address+2], mem[address+3]};
         end
     end
 endmodule

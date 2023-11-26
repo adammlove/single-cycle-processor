@@ -5,9 +5,8 @@ module processor();
 
     // wires
     wire alu_zero, alu_ovr;
-    wire [31:0] PC_address, PC_next, PC_add4, instruction;
-    wire [63:0] PC_addimm, imm_out, reg_data_in, reg_out1, reg_out2,
-                ALU_val_in, ALU_out, data_mem_out;
+    wire [31:0] PC_address, PC_next, PC_add4, instruction, reg_data_in, data_mem_out;
+    wire [63:0] PC_addimm, imm_out, ALU_val_in, ALU_out, reg_out1, reg_out2;
 
     // control outputs
     wire branch, memread, memtoreg, memwrite, alusrc, regwrite;
